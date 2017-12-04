@@ -25,13 +25,12 @@ public class B {
                                 return new int[]{i, j};
                             }); //return stream of array
                         })//return stream of stream of array
-                        .map(st -> {
+                        .flatMap(st -> {
                             return st.map(a -> new int[]{Integer.parseInt(arr[a[0]]), Integer.parseInt(arr[a[1]])})
                             .filter(a -> (a[0] % a[1])==0)
                             .peek(a -> System.out.println("kept only: [" + a[0] + ", " + a[1] + "]"))
                             .map(a -> a[0] / a[1]);
                         })
-                        .flatMap(x->x)
                         .mapToInt(x->x.intValue())
                         .peek(s->System.out.println("Dvision result: " + s))
                         .findAny().getAsInt()

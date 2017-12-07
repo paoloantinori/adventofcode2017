@@ -38,7 +38,16 @@ public class B {
 
                 
             }
-            int i = 0;
+            ;
+            int distance = set.stream().reduce(0,
+            (accInt, elStr) -> elStr.equals(str(arr)) ? accInt : accInt + 1,
+            (accInt1, accInt2) -> accInt1 + accInt2
+            );
+
+           System.out.println("distance: " + (set.size() - distance));
+           System.out.println("counter? "+ counter);
+
+           int i = 0;
             for(String s : set){
                 if(s.equals(str(arr))){
                     System.out.println("found: " + (set.size() - i));

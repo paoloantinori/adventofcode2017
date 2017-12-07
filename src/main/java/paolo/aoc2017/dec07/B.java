@@ -50,10 +50,9 @@ public class B {
             String[] arrChildren = children.split(",\\s?");
             
             rootNode = map.get(id);
-            for(String child : arrChildren){
-                N childNode = map.get(child.trim());
-                rootNode.list.add(childNode);
-            }
+            final N finalRootNode = map.get(id);
+            Stream.of(arrChildren).forEach(arr-> finalRootNode.list.add(map.get(arr.trim())));
+
         } 
         return rootNode;
     }

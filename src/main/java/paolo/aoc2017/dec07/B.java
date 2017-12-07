@@ -59,8 +59,6 @@ public class B {
     }
 
     public static void main(String[] str){
-
-
         try{
             Files.readAllLines(Paths.get("src/main/resources/07/a.txt")).stream()
             .forEach( l ->{
@@ -72,10 +70,31 @@ public class B {
                 nAddChildren(l);
             });
             N root = map.values().stream().reduce(new N(), (acc, el) -> el.childrenNumber() > acc.childrenNumber()? el:acc);
-            for(N c : root.list){
-                System.out.println(""+c.subtreeW());
+            
+            N node = root;
+            N father = null;
+            while(node.list.size() >0){
+                father = node;
+                if(node.subtreeW() < node.list.stream().mapToInt(N::subtreeW).sum()){
+                    // look for the smallest
+                    N next = node.list.stream().reduce(new N("", Integer.MAX_VALUE), (acc, el) -> el.subtreeW() < acc.subtreeW()?el:acc);
+                    node = next;
+                } else {
+                    // look for the largest
+                    N next = node.list.stream().reduce(new N("", Integer.MIN_VALUE), (acc, el) -> el.subtreeW() > acc.subtreeW()?el:acc);
+                    node = next;
+                }
+                int sample = node.list.get(0).subtreeW();
+                if(node.list.stream().allMatch(n->n.subtreeW()==sample))
+                    break;
             }
-            root.list.map(N::subtreeW );
+
+            final N finalNode = node;
+            N brother = father.list.stream().filter(n->!n.equals(finalNode)).findAny().get();
+            int nodeSub = node.subtreeW();
+            int broSub = brother.subtreeW();
+            int result = node.w +  broSub - nodeSub;
+            System.out.println("result: " +  result  );
             
         } catch(Exception e){
             e.printStackTrace();

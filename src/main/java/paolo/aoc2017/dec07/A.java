@@ -86,32 +86,32 @@ public class A {
     }
 }
 
-class N{
-    String id;
-    int w;
-    List<N> list = new ArrayList<>();
+// class N{
+//     String id;
+//     int w;
+//     List<N> list = new ArrayList<>();
 
-    public N(){}
-    public N(String id, int w){ this.id=id;this.w=w;}
+//     public N(){}
+//     public N(String id, int w){ this.id=id;this.w=w;}
 
-    public int childrenNumber(){
-        return  list.size() + list.stream().mapToInt(n-> n.childrenNumber()).sum();
-    }
+//     public int childrenNumber(){
+//         return  list.size() + list.stream().mapToInt(n-> n.childrenNumber()).sum();
+//     }
 
-    public String toString(){
-        String base = String.format( "%s (%d)", id, w);
-        if(list.size()>0)
-            base += " -> " + list;
-        return base;
-    }
+//     public String toString(){
+//         String base = String.format( "%s (%d)", id, w);
+//         if(list.size()>0)
+//             base += " -> " + list;
+//         return base;
+//     }
 
-    @Override
-    public boolean equals(Object o){
-        return ((N)o).id.equals(this.id);
-    }
+//     @Override
+//     public boolean equals(Object o){
+//         return ((N)o).id.equals(this.id);
+//     }
 
-    @Override
-    public int hashCode(){
-        return this.id.hashCode();
-    }
+//     @Override
+//     public int hashCode(){
+//         return this.id.hashCode();
+//     }
 }
